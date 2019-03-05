@@ -1,0 +1,136 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "linkseller service",
+    "version": "1.0",
+    "contact": {
+      "name": "linkseller project",
+      "url": "https://github.com/stelo/blackmore",
+      "email": "carlos.fernandes@stelo.com.br"
+    }
+  },
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/linkseller": {
+      "post": {
+        "operationId": "Create",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "format": "string"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "LinksellerService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "v1CreateRequest": {
+      "type": "object",
+      "properties": {
+        "api": {
+          "type": "string"
+        },
+        "linkseller": {
+          "$ref": "#/definitions/v1Linkseller"
+        }
+      }
+    },
+    "v1CreateResponse": {
+      "type": "object",
+      "properties": {
+        "api": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1Linkseller": {
+      "type": "object",
+      "properties": {
+        "person": {
+          "$ref": "#/definitions/v1Person"
+        },
+        "machine": {
+          "$ref": "#/definitions/v1Machine"
+        },
+        "order": {
+          "$ref": "#/definitions/v1Order"
+        }
+      }
+    },
+    "v1Machine": {
+      "type": "object",
+      "properties": {
+        "modelcode": {
+          "type": "string",
+          "format": "int64"
+        },
+        "seriesnumber": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number",
+          "format": "double"
+        },
+        "model": {
+          "type": "string"
+        },
+        "chip": {
+          "type": "string"
+        }
+      }
+    },
+    "v1Order": {
+      "type": "object",
+      "properties": {
+        "ordercode": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "v1Person": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "document": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

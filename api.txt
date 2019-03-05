@@ -1,0 +1,19 @@
+pessoa
+  tipo string 
+  doc string
+
+maquina
+  cod_modelo long 
+  num_serie string
+  valor double
+  modelo string 
+  chip string
+
+pedido
+  cod_pedido long
+
+
+##########
+protoc --proto_path=api/proto/v1 --proto_path=third_party --go_out=plugins=grpc:pkg/api/v1 linkseller-service.proto
+protoc --proto_path=api/proto/v1 --proto_path=third_party --grpc-gateway_out=logtostderr=true:pkg/api/v1 linkseller-service.proto
+protoc --proto_path=api/proto/v1 --proto_path=third_party --swagger_out=logtostderr=true:api/swagger/v1 linkseller-service.proto

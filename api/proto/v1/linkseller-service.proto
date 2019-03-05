@@ -1,0 +1,72 @@
+syntax = "proto3";
+package v1;
+
+import "google/api/annotations.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+	info: {
+		title: "linkseller service";
+		version: "1.0";
+		contact: {
+			name: "linkseller project";
+			url: "https://github.com/stelo/blackmore";
+			email: "carlos.fernandes@stelo.com.br";
+        };
+    };
+    schemes: HTTP;
+    consumes: "application/json";
+    produces: "application/json";
+    responses: {
+		key: "404";
+		value: {
+			description: "Returned when the resource does not exist.";
+			schema: {
+				json_schema: {
+					type: STRING;
+				}
+			}
+		}
+	}
+};
+
+message Linkseller {
+    Person person = 1;
+    Machine machine = 2;
+    Order order = 3;
+}
+message Person {
+    string type = 1;
+    string document = 2; 
+}
+message Machine {
+    int64 modelcode = 1;
+    string seriesnumber = 2;
+    double value = 3;
+    string model = 4;
+    string chip = 5;
+}
+message Order {
+    int64 ordercode = 1;
+}
+
+message CreateRequest{
+    string api = 1;
+
+    Linkseller linkseller = 2;
+}
+
+message CreateResponse{
+    string api = 1;
+
+    int64 id = 2;
+}
+
+service LinksellerService {
+    rpc Create(CreateRequest) returns (CreateResponse){
+        option (google.api.http) = {
+            post: "/v1/linkseller"
+            body: "*"
+        };
+    }
+}
