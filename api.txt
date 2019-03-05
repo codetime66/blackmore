@@ -17,3 +17,12 @@ pedido
 protoc --proto_path=api/proto/v1 --proto_path=third_party --go_out=plugins=grpc:pkg/api/v1 linkseller-service.proto
 protoc --proto_path=api/proto/v1 --proto_path=third_party --grpc-gateway_out=logtostderr=true:pkg/api/v1 linkseller-service.proto
 protoc --proto_path=api/proto/v1 --proto_path=third_party --swagger_out=logtostderr=true:api/swagger/v1 linkseller-service.proto
+
+#########
+#it starts the server:
+./server -grpc-port=9090 -http-port=8080 -db-host=192.168.56.1:3306 -db-user=root -db-password=mypassword -db-schema=scorpion -log-level=-1 -log-time-format=2006-01-02T15:04:05.999999999Z07:00
+
+#it tests the client:
+./client-grpc -server=localhost:9090
+./client-rest -server=http://localhost:8080
+
